@@ -1,6 +1,9 @@
  // src/utils/metrics.ts
 import axios from 'axios';
- import ping from 'ping'; // For measuring ping time
+import { PrismaClient } from '@prisma/client';
+import ping from 'ping';
+
+const prisma = new PrismaClient();
 
 const getResponseTime = async (url: string) => {
   const start = Date.now();
@@ -18,23 +21,21 @@ const checkWebsiteStatus = async (url: string) => {
   }
 };
 
-const getPingTime = async (url: string) => {
-  const response = await ping.promise.probe(url.replace(/^https?:\/\//, ''));
-  if(response.time == null || response.time == 'unknown'){
-    return 0;
-  }
-  else{
-  return response.time;
-  }
-};
+ 
 
 export const getMetrics = async (url: string) => {
   const status = await checkWebsiteStatus(url);
   const responseTime = await getResponseTime(url);
-  const pingTime = await getPingTime(url);
+ 
 
-//   const metric = new Metric({ url, status, responseTime, pingTime });
-//   await metric.save();
+  const website = await prisma.website.create({
+    data: {
+      url,
+      status,
+      responseTime,
+       
+    },
+  });
 
-  return { status, responseTime, pingTime };
+  return { status, responseTime, }  ;
 };

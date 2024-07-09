@@ -2,9 +2,11 @@
 import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
 import { schema, root } from './graphql';
-
+import { PrismaClient } from '@prisma/client'
+ 
 const app = express();
-
+ 
+ 
 app.use('/graphql', graphqlHTTP({
   schema,
   rootValue: root,

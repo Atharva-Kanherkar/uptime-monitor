@@ -1,6 +1,8 @@
  // src/graphql/resolvers/metricsResolver.ts
 import { getMetrics } from '../../utils/metrics';
-// import Metric from '../../models/Metric';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export const metricsResolver = {
   metrics: async ({ url }: { url: string }) => {
@@ -8,8 +10,12 @@ export const metricsResolver = {
     console.log(result);
     return result;
   },
-//   metricsHistory: async ({ url }: { url: string }) => {
-//     const history = await Metric.find({ url }).sort({ timestamp: -1 }).limit(10);
-//     return history;
-//   },
+  metricsHistory: async ({ url }: { url: string }) => {
+    const history = await prisma.website.findMany({
+      where: { url },
+      orderBy: { timestamp: 'desc' },
+      take: 10,
+    });
+    return history;
+  },
 };
