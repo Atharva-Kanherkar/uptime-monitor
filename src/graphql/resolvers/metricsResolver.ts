@@ -4,7 +4,7 @@ import { getMetrics } from '../../utils/metrics';
 
 const prisma = new PrismaClient();
 
-export const resolvers = {
+export const metricsResolvers = {
   Query: {
     metricsHistory: async (_: any, { url }: { url: string }) => {
       const history = await prisma.website.findMany({

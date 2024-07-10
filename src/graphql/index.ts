@@ -1,15 +1,15 @@
- // src/index.ts
-import { ApolloServer } from 'apollo-server';
-import { importSchema } from 'graphql-import';
-import { resolvers } from './resolvers/metricsResolver';
+ // src/graphql/index.ts
 
-const typeDefs = importSchema('src/graphql/schema.graphql');
+import { metricsResolvers } from "./resolvers/metricsResolver";
+import userResolvers from "./resolvers/userResolvers";
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
-
-server.listen().then(({ url }) => {
-  console.log(`Server ready at ${url}`);
-});
+export const resolvers = {
+  Query: {
+    ...metricsResolvers.Query,
+    ...userResolvers.Query,
+  },
+  Mutation: {
+    ...metricsResolvers.Mutation,
+    ...userResolvers.Mutation,
+  },
+};

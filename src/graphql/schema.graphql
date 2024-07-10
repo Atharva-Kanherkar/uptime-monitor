@@ -8,10 +8,39 @@ type Website {
   timestamp: String!
 }
 
+ 
+
+
+type User {
+  id: ID!
+  email: String!
+  password : String!
+  username : String
+  isPaid : Boolean
+  maxWebsites: Int
+  favWebsites : [Website]
+}
+
+
+input UserInput {
+  email: String!
+  password: String!
+  username: String
+}
+
+
 type Query {
   metricsHistory(url: String!): [Website!]!
+  getUser(id: ID!): User
+  getUsers: [User!]
+  getWebsite(id: ID!): Website
+  getWebsites: [Website!]
 }
 
 type Mutation {
   getMetrics(url: String!): Website!
+  createUser(data: UserInput!): User!
+  updateUser(id: ID!, data: UserInput!): User!
+  deleteUser(id: ID!): User!
+  createWebsite(url: String!): Website!
 }

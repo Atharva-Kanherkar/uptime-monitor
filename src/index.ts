@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server';
 import { importSchema } from 'graphql-import';
-import { resolvers } from './graphql/resolvers/metricsResolver';
+import { resolvers } from './graphql/index';
 
 const typeDefs = importSchema('src/graphql/schema.graphql');
 
