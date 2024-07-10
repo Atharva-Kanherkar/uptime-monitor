@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { PrismaClient } from '@prisma/client';
 import ping from 'ping';
+import exp from 'constants';
 
 const prisma = new PrismaClient();
 
@@ -36,6 +37,15 @@ export const getMetrics = async (url: string) => {
        
     },
   });
-
+  
   return { status, responseTime, }  ;
 };
+
+export const getMetricsHistory = async (url: string) => {
+  const history = await prisma.website.findMany({
+    where: { url },
+    orderBy: { timestamp: 'desc' },
+    take: 10,
+  });
+  return history;
+}

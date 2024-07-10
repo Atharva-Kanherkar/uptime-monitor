@@ -1,19 +1,14 @@
- // src/server.ts
-import express from 'express';
-import { graphqlHTTP } from 'express-graphql';
-import { schema, root } from './graphql';
-import { PrismaClient } from '@prisma/client'
- 
-const app = express();
- 
- 
-app.use('/graphql', graphqlHTTP({
-  schema,
-  rootValue: root,
-  graphiql: true,
-}));
+import { ApolloServer } from 'apollo-server';
+import { importSchema } from 'graphql-import';
+import { resolvers } from './graphql/resolvers/metricsResolver';
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+const typeDefs = importSchema('src/graphql/schema.graphql');
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+server.listen().then(({ url }) => {
+  console.log(`Server ready at ${url}`);
 });

@@ -1,0 +1,17 @@
+# src/graphql/schema.graphql
+
+type Website {
+  id: Int!
+  url: String!
+  status: String!
+  responseTime: Int!
+  timestamp: String!
+}
+
+type Query {
+  metricsHistory(url: String!): [Website!]!
+}
+
+type Mutation {
+  getMetrics(url: String!): Website!
+}

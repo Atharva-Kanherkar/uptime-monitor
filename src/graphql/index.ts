@@ -1,9 +1,15 @@
-// src/graphql/index.ts
-import { schema } from './schemas/metricsSchemas';
-import { metricsResolver } from './resolvers/metricsResolver';
+ // src/index.ts
+import { ApolloServer } from 'apollo-server';
+import { importSchema } from 'graphql-import';
+import { resolvers } from './resolvers/metricsResolver';
 
-export const root = {
-  ...metricsResolver,
-};
+const typeDefs = importSchema('src/graphql/schema.graphql');
 
-export { schema };
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+server.listen().then(({ url }) => {
+  console.log(`Server ready at ${url}`);
+});
