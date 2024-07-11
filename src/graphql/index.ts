@@ -1,15 +1,14 @@
  // src/graphql/index.ts
 
-import { mutation } from "./resolvers/mutations";
-
+import userResolvers  from "./resolvers/userResolvers";
 // import { metricsResolvers } from "./resolvers/metricsResolver";
 // import userResolvers from "./resolvers/userResolvers";
 
 export const resolvers = {
   Query: {
-     
+     ...userResolvers.Query
   },
   Mutation: {
-    ...mutation
+    ...userResolvers.Mutation
   },
 };
