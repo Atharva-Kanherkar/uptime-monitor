@@ -1,8 +1,6 @@
  // src/utils/metrics.ts
 import axios from 'axios';
 import { PrismaClient } from '@prisma/client';
-import ping from 'ping';
-import exp from 'constants';
 
 const prisma = new PrismaClient();
 

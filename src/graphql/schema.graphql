@@ -6,19 +6,18 @@ type Website {
   status: String!
   responseTime: Int!
   timestamp: String!
+  user: User
 }
 
 
-  type User {
+type User {
     id: ID!
     email: String!
     userName: String
     password: String!
-    favWebsites : Website[]
+    websites : [Website]
     profilePhoto : String
     isPaid : Boolean
-     
-    
 }
 
 input UserInput {
@@ -35,8 +34,14 @@ type AuthPayload {
 type Mutation {
     createUser(input: UserInput!): User!
     login(email: String!, password: String!): AuthPayload!
+    getMetrics(url: String!): Website!
+    emailSendIfDown(url : String, userId : String): String!
+
 }
 
 type Query {
     me: User
+    metricsHistory(url: String!): [Website] 
+    
 }
+

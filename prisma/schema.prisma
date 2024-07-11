@@ -14,7 +14,7 @@ model User {
   userName    String?
   isPaid      Boolean @default(false)
   maxWebsites Int?
-  favWebsites Website[]  // One-to-Many relationship with Website
+  websites Website[]  // One-to-Many relationship with Website
 }
 
 model Website {
