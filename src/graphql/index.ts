@@ -1,6 +1,6 @@
  // src/graphql/index.ts
 import { metricsResolvers } from "./resolvers/metricsResolver";
-import userResolvers  from "./resolvers/userResolvers";
+import {userResolvers}  from "./resolvers/userResolvers";
 import { emailResolvers } from "./resolvers/emailResolver";
 // import { metricsResolvers } from "./resolvers/metricsResolver";
 // import userResolvers from "./resolvers/userResolvers";

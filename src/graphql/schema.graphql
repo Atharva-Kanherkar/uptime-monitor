@@ -1,6 +1,4 @@
-# src/graphql/schema.graphql
-
-type Website {
+ type Website {
   id: Int!
   url: String!
   status: String!
@@ -9,39 +7,56 @@ type Website {
   user: User
 }
 
-
 type User {
-    id: ID!
-    email: String!
-    userName: String
-    password: String!
-    websites : [Website]
-    profilePhoto : String
-    isPaid : Boolean
+  id: ID!
+  email: String!
+  userName: String
+  password: String!
+  website: Website
+  profilePhoto: String
+  isPaid: Boolean
 }
 
 input UserInput {
-    email: String!
-    userName: String
-    password: String!
+  email: String!
+  userName: String
+  password: String!
+  website: WebsiteInput
+}
+
+input UpdateUserInput {
+  email: String
+  userName: String
+  password: String
+  profilePhoto: String
+  isPaid: Boolean
 }
 
 type AuthPayload {
-    token: String
-    user: User
+  token: String
+  user: User
+}
+input deleteUserInput {
+  id: ID!
 }
 
-type Mutation {
-    createUser(input: UserInput!): User!
-    login(email: String!, password: String!): AuthPayload!
-    getMetrics(url: String!): Website!
-    emailSendIfDown(url : String, userId : String): String!
+input WebsiteInput {
+  url: String!
+  status: String
+  responseTime: Int
+}
 
+
+type Mutation {
+  createUser(input: UserInput!): User!
+  login(email: String!, password: String!): AuthPayload!
+  getMetrics(url: String!): Website!
+  emailSendIfDown(url: String, userId: String): String!
+  updateUser(input: UpdateUserInput!): User!
+  deleteUser(input: deleteUserInput): User!
 }
 
 type Query {
-    me: User
-    metricsHistory(url: String!): [Website] 
-    
+  me: User
+  metricsHistory(url: String!): [Website]
 }
-

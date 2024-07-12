@@ -18,12 +18,12 @@
     "@types/nodemailer": "^6.4.15",
     "@types/ping": "^0.4.4",
     "nodemon": "^3.1.4",
-    "prisma": "^5.16.1",
+    "prisma": "^5.16.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
   },
   "dependencies": {
-    "@prisma/client": "^5.16.1",
+    "@prisma/client": "^5.16.2",
     "apollo-server": "^3.13.0",
     "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",

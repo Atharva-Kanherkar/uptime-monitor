@@ -4,38 +4,41 @@ import { sendEmail } from './email'; // Assuming you have a function to send ema
 
 const prisma = new PrismaClient();
 
-async function monitorWebsites() {
+export async function monitorWebsites() {
+  console.log("Function invoked");
   try {
     // Retrieve all users with their websites
     const users = await prisma.user.findMany({
+      include: {
+        website: true, 
+      },
     });
-    const user = await prisma.user.findUnique(
-        {
-            where: { id: "rei" },
-        }
-    );
-    user.
-    // Iterate through each user
-//     for (const user of users) {
-//       // Iterate through each website of the user
-//       for (const website of user.) {
-//         try {
-//           // Check website status
-//           const response = await axios.get(website.url);
+  
+  console.log(users);
+    for (const user of users) {
+      // Iterate through each website of the user
+        try {
+          // Check website status
+          if (user.website?.url) {
+            const response = await axios.get(user.website.url);
 
-//           if (response.status == 200) {
-//             // Website is down, send email alert
-//             await sendEmail(user.email, 'Website Down Alert', `Your website ${website.url} is down.`);
-//           }
-//         } catch (error) {
-//           // Handle request error or timeout
-//           console.error(`Error checking ${website.url}:`, error.message);
-//           // Optionally log this error or handle it based on your application's needs
-//         }
-//       }
-//     }
-  } catch (error) {
-    console.error('Error retrieving users or websites:', error.message);
+          // if (response.status == 200) {
+            // Website is down, send email alert
+               //@ts-ignore
+            await sendEmail(user.email, 'Website Down Alert', `Your website ${website.url} is down.`);
+          // }
+          }
+
+        } catch (error : unknown) {
+          // Handle request error or timeout
+          //@ts-ignore
+          console.error(`Error checking ${user.website.url}:`, (error as Error).message);
+          // Optionally log this error or handle it based on your application's needs
+        }
+      }
+ 
+  } catch (error : unknown) {
+    console.error('Error retrieving users or websites:', (error as Error).message);
     // Handle database query errors or other critical errors
   }
 }

@@ -10,11 +10,11 @@ datasource db {
 model User {
   id          String    @id @default(cuid())
   email       String    @unique
-  password    String   @default("")
+  password    String    @default("")
   userName    String?
-  isPaid      Boolean @default(false)
+  isPaid      Boolean   @default(false)
   maxWebsites Int?
-  websites Website[]  // One-to-Many relationship with Website
+  website     Website?  // One-to-One relationship with Website
 }
 
 model Website {
@@ -23,6 +23,6 @@ model Website {
   status       String
   responseTime Int
   timestamp    DateTime @default(now())
-  userId       String?   // Optional foreign key
-  user         User?     @relation(fields: [userId], references: [id]) // Optional relation
+  userId       String?  @unique  // Foreign key with a unique constraint
+  user         User?    @relation(fields: [userId], references: [id])
 }
