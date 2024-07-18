@@ -21,18 +21,16 @@ export async function monitorWebsites() {
           // Check website status
           if (user.website?.url) {
             const response = await axios.get(user.website.url);
-
-          // if (response.status == 200) {
+            console.log(response.status)
+          if (response.status != 200) {
             // Website is down, send email alert
-               //@ts-ignore
-            await sendEmail(user.email, 'Website Down Alert', `Your website ${website.url} is down.`);
-          // }
+            await sendEmail(user.email, 'Website Down Alert', `Your website ${user.website.url} is down.`);
+          }
           }
 
         } catch (error : unknown) {
           // Handle request error or timeout
-          //@ts-ignore
-          console.error(`Error checking ${user.website.url}:`, (error as Error).message);
+          console.error(`Error checking ${user.website?.url}:`, (error as Error).message);
           // Optionally log this error or handle it based on your application's needs
         }
       }
@@ -42,8 +40,7 @@ export async function monitorWebsites() {
     // Handle database query errors or other critical errors
   }
 }
-
-// // Example: Run monitoring every hour
-// setInterval(monitorWebsites, 60 * 1000); // Run every hour
+ 
+setInterval(monitorWebsites, 60 * 1000); // Run every hour
 
 // // Alternatively, use a scheduler library like node-cron or node-schedule to run at specific times or intervals

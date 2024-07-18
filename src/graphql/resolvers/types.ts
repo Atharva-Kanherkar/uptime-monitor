@@ -1,4 +1,13 @@
 export interface UserInput {
+    website: WebsiteInput;
+    userName: any;
+    email: string;
+    name?: string;
+    password: string;
+}
+export interface UpdateUserInput {
+    website: any;
+    userName: any;
     email: string;
     name?: string;
     password: string;
@@ -23,3 +32,8 @@ export interface Website {
     timestamp: string;
     user: User;
   }
+export interface WebsiteInput{
+    url: string;
+    status: string;
+    responseTime: number;
+}

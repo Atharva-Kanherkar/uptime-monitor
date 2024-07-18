@@ -11,7 +11,7 @@ const getResponseTime = async (url: string) => {
   return end - start;
 };
 
-const checkWebsiteStatus = async (url: string) => {
+export const checkWebsiteStatus = async (url: string) => {
   try {
     const response = await axios.get(url);
     return response.status === 200 ? 'Up' : 'Down';

@@ -53,7 +53,7 @@ type Mutation {
   getMetrics(url: String!): Website!
   emailSendIfDown(url: String, userId: String): String!
   updateUser(input: UpdateUserInput!): User!
-  deleteUser(input: deleteUserInput): User!
+    deleteUser: User!
 }
 
 type Query {

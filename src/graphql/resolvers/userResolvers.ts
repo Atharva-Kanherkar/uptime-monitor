@@ -2,7 +2,8 @@ const bcrypt = require('bcryptjs');
 import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 import { Context } from './context';
-import { UserInput, AuthPayload, User } from './types';
+import { UserInput, AuthPayload, User, UpdateUserInput } from './types';
+import { checkWebsiteStatus } from '../../utils/metrics';
 
 const prisma = new PrismaClient();
 
@@ -17,7 +18,7 @@ const prisma = new PrismaClient();
           website: input.website ? {
             create: {
               url: input.website.url,
-              status:  'unknown',
+              status:  (await checkWebsiteStatus(input.website.url)).toString(),
               responseTime:   0,
             }
           } : undefined,
@@ -39,14 +40,17 @@ const prisma = new PrismaClient();
       if (!valid) {
         throw new Error('Invalid password');
       }
-      const token = jwt.sign({ userId: user.id }, "SECRETY");
+      const token = jwt.sign({ id: user.id }, "SECRETY", {
+        expiresIn: '1h', // Token expiration time
+      });
+      
       return {
         token,
         user,
       };
     },
-    async updateUser(_: unknown, { input }: { input: UserInput }, context: Context): Promise<User> {
-      const userId = getUserId(context);
+    async updateUser(_: unknown, { input }: { input: UpdateUserInput }, context: Context): Promise<User> {
+      const userId = context.user?.id;
       if (!userId) {
         throw new Error('Not authenticated');
       }
@@ -56,7 +60,7 @@ const prisma = new PrismaClient();
       if (!user) {
         throw new Error('User not found');
       }
-      const updatedData: Partial<UserInput> = { ...input };
+      const updatedData: Partial<UpdateUserInput> = { ...input };
       if (input.password) {
         updatedData.password = await bcrypt.hash(input.password, 10);
       }
@@ -67,27 +71,36 @@ const prisma = new PrismaClient();
       return updatedUser;
     
     },
-      async deleteUser(_: unknown, { input }: { input: { id: string } }, context: Context): Promise<User> {
-      const userId = input.id;
-
-      const user = await prisma.user.findUnique({
-        where: { id: userId },
-      });
-
-      if (!user) {
-        throw new Error('User not found');
-      }
-
-      await prisma.website.deleteMany({
-        where: { userId },
-      });
-
-      const deletedUser = await prisma.user.delete({
-        where: { id: userId },
-      });
-
-      return deletedUser;
-    },
+      async deleteUser (
+        _: unknown,
+        __: unknown, // No input required
+        context: Context
+      ): Promise<User> {
+        const userId = context.user?.id;
+      
+        if (!userId) {
+          throw new Error('Not authenticated');
+        }
+      
+        const user = await context.prisma.user.findUnique({
+          where: { id: userId },
+        });
+      
+        if (!user) {
+          throw new Error('User not found');
+        }
+      
+        await context.prisma.website.deleteMany({
+          where: { userId },
+        });
+      
+        const deletedUser = await context.prisma.user.delete({
+          where: { id: userId },
+        });
+      
+        return deletedUser;
+      },
+      
   },
   Query: {
     me: async (_: unknown, __: unknown, id : { id : string } ): Promise<User | null> => {
