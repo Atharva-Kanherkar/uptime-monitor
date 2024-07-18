@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const getResponseTime = async (url: string) => {
+export const getResponseTime = async (url: string) => {
   const start = Date.now();
   await axios.get(url);
   const end = Date.now();

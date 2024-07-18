@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 import { Context } from './context';
 import { UserInput, AuthPayload, User, UpdateUserInput } from './types';
-import { checkWebsiteStatus } from '../../utils/metrics';
+import { checkWebsiteStatus, getResponseTime } from '../../utils/metrics';
 
 const prisma = new PrismaClient();
 
@@ -19,7 +19,7 @@ const prisma = new PrismaClient();
             create: {
               url: input.website.url,
               status:  (await checkWebsiteStatus(input.website.url)).toString(),
-              responseTime:   0,
+              responseTime: (await getResponseTime(input.website.url)),
             }
           } : undefined,
         },
