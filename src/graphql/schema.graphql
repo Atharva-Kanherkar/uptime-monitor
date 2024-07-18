@@ -54,6 +54,7 @@ type Mutation {
   emailSendIfDown(url: String, userId: String): String!
   updateUser(input: UpdateUserInput!): User!
     deleteUser: User!
+    sendSlackAlert(channel: String!, message: String!): Boolean
 }
 
 type Query {

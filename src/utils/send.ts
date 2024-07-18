@@ -41,6 +41,6 @@ export async function monitorWebsites() {
   }
 }
  
-setInterval(monitorWebsites, 60 * 1000); // Run every hour
+ // Run every hour
 
 // // Alternatively, use a scheduler library like node-cron or node-schedule to run at specific times or intervals
