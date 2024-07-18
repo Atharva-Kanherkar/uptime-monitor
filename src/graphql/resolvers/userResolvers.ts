@@ -117,6 +117,8 @@ const prisma = new PrismaClient();
   },
 };
 
+//Useless as of now. 
+/*
 function getUserId(context: Context): string | null {
   const Authorization = context.request.get('Authorization');
   if (Authorization) {
@@ -126,4 +128,4 @@ function getUserId(context: Context): string | null {
   }
   return null;
 }
- 
+*/
