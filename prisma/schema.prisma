@@ -8,13 +8,16 @@ datasource db {
 }
 
 model User {
-  id          String    @id @default(cuid())
-  email       String    @unique
-  password    String    @default("")
-  userName    String?
-  isPaid      Boolean   @default(false)
-  maxWebsites Int?
-  website     Website?  // One-to-One relationship with Website
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String    @default("")
+  userName      String?
+  isPaid        Boolean   @default(false)
+  maxWebsites   Int?
+  website       Website?  // One-to-One relationship with Website
+  slackUserId   String?   // Slack user ID
+  slackToken    String?   // Slack access token
+  slackChannelId String?  // Default Slack channel ID
 }
 
 model Website {

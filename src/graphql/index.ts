@@ -2,7 +2,7 @@
 import { metricsResolvers } from "./resolvers/metricsResolver";
 import {userResolvers}  from "./resolvers/userResolvers";
 import { emailResolvers } from "./resolvers/emailResolver";
-import { slacResolvers } from "./resolvers/slackResolver";
+import { slackResolvers } from "./resolvers/slackResolver";
 // import { metricsResolvers } from "./resolvers/metricsResolver";
 // import userResolvers from "./resolvers/userResolvers";
 
@@ -16,6 +16,6 @@ export const resolvers = {
     ...userResolvers.Mutation,
     ...metricsResolvers.Mutation,
     ...emailResolvers.Mutation,
-    ...slacResolvers.Mutation,
+    ...slackResolvers.Mutation,
   },
 };

@@ -15,6 +15,9 @@ type User {
   website: Website
   profilePhoto: String
   isPaid: Boolean
+  slackUserId: String
+  slackToken: String
+  slackChannelId: String
 }
 
 input UserInput {
@@ -53,8 +56,9 @@ type Mutation {
   getMetrics(url: String!): Website!
   emailSendIfDown(url: String, userId: String): String!
   updateUser(input: UpdateUserInput!): User!
-    deleteUser: User!
-    sendSlackAlert(channel: String!, message: String!): Boolean
+  deleteUser: User!
+  registerSlack(slackUserId: String!, slackToken: String!, slackChannelId: String!): Boolean!
+  sendSlackAlert(userId: String!, message: String!): Boolean!
 }
 
 type Query {
