@@ -5,7 +5,8 @@ import { PrismaClient } from '@prisma/client';
 import { createContext } from '../src/graphql/resolvers/context';
 import { monitorWebsites } from './utils/send';
 import jwt from 'jsonwebtoken';
-import { User } from '../src/graphql/resolvers/types'; // Assuming you have a User type defined
+import { User } from '../src/graphql/resolvers/types'; // Assuming you have a User type defined'
+import '../src/utils/scheduler';
 
 const typeDefs = importSchema('src/graphql/schema.graphql');
 const prisma = new PrismaClient();
