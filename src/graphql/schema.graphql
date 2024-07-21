@@ -22,9 +22,7 @@ type User {
 
 input UserInput {
   email: String!
-  userName: String
   password: String!
-  website: WebsiteInput
 }
 
 input UpdateUserInput {
