@@ -90,7 +90,7 @@ export function Navbar() {
     <nav className="flex justify-center">
       <NavigationMenu>
         <NavigationMenuList>  <NavigationMenuItem>
-  <a href="/" className={`${navigationMenuTriggerStyle()} text-l font-bold text-white-800`}>
+  <a href="/" className={`${navigationMenuTriggerStyle()} text font-bold text-white-800 hover:text-gray-600`}>
     Betterstack
   </a>
 </NavigationMenuItem>

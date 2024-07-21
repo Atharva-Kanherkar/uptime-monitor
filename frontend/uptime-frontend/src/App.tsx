@@ -1,25 +1,14 @@
-import { ThemeProvider } from "@/components/theme-provider"
-import { ModeToggle } from "./components/mode-toggle"
-import { Navbar } from "./pages/navbar";
- 
-  
+
+import { BrowserRouter as Router  } from 'react-router-dom';
+import AppContent from './pages/AppContent';
+
 
 function App() {
- 
   return (
-    <>
-     
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <>
-      <div className="mt-2">
-      <Navbar/>
-      </div>
-    
-      </>
-    </ThemeProvider>
-    </>
-  )
+    <Router>
+       <AppContent/>
+    </Router>
+  );
 }
 
 export default App;
-
