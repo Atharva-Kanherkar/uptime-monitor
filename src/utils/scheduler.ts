@@ -3,9 +3,10 @@ import { WebClient } from '@slack/web-api';
 import cron from 'node-cron';
 import { checkWebsiteStatus } from './metrics';
 
+
 const prisma = new PrismaClient();
 
-const notifyIfWebsiteDown = async () => {
+export const notifyIfWebsiteDown = async () => {
   try {
     const users = await prisma.user.findMany({
       include: {
