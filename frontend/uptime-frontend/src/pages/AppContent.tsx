@@ -15,36 +15,36 @@ function AppContent() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="mt-2">
-        {!hideNavbarRoutes.includes(location.pathname) ? (
-          <Navbar />
-        ) : (
-          location.pathname === "/freeDashboard" && (
-            <div className="flex justify-start p-4">
-              <Link
-                to="/"
-                className="flex items-center text-white text-sm hover:text-gray-400 mt-2 ml-2"
-              >
-                <FaArrowLeft className="mr-1" />
-                Back to Home Page
-              </Link>
-            </div>
-          )
+      <div className="relative min-h-screen">
+        {/* Display Navbar if not on hideNavbarRoutes */}
+        {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+
+        {/* Display Back to Home Page link on specific routes */}
+        {hideNavbarRoutes.includes(location.pathname) && (
+          <div className="absolute top-0 left-0 p-4">
+            <Link
+              to="/"
+              className="flex items-center text-white text-sm hover:text-gray-400"
+            >
+              <FaArrowLeft className="mr-1" />
+              Back to Home Page
+            </Link>
+          </div>
         )}
-      </div>
-      <div className="main-content">
-        <Routes>
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/freeDashboard" element={<FreeDashboard />} /> {/* Add this route */}
-          {/* Add other routes here */}
-        </Routes>
-      </div>
-      {!hideNavbarRoutes.includes(location.pathname) && (
-        <div>
-          <HeroSection />
+
+        {/* Main content routes */}
+        <div className="pt-16">
+          <Routes>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/freeDashboard" element={<FreeDashboard />} /> {/* Add this route */}
+            {/* Add other routes here */}
+          </Routes>
         </div>
-      )}
+
+        {/* Display HeroSection if not on hideNavbarRoutes */}
+        {!hideNavbarRoutes.includes(location.pathname) && <HeroSection />}
+      </div>
     </ThemeProvider>
   );
 }

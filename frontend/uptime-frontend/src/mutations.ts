@@ -18,3 +18,14 @@ mutation GetMetrics($url: String!) {
   }
 }
 `;
+
+export const METRICS_HISTORY_QUERY = gql`
+  query MetricsHistory($url: String!) {
+    metricsHistory(url: $url) {
+      id
+      status
+      responseTime
+      timestamp
+    }
+  }
+`;

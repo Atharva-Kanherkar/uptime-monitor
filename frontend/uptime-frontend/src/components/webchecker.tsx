@@ -30,6 +30,7 @@ function WebChecker() {
 
   return (
     <div className="flex flex-col w-full max-w-sm space-y-8">
+      <h2 className="text-lg font-bold text-sky-400">Check your website now!</h2>
       <Input
         type="text"
         placeholder="Enter website URL"
