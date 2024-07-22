@@ -4,6 +4,7 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link, Route, Routes, useLocation } from "react-router-dom";
+import HeroSection from "./main";
 
 function AppContent() {
   const location = useLocation();
@@ -33,6 +34,9 @@ function AppContent() {
         <Route path="/signin" element={<SignIn />} />
         {/* Add other routes here */}
       </Routes>
+      <div>
+        <HeroSection />
+      </div>
     </ThemeProvider>
   );
 }

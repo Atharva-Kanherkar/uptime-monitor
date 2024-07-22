@@ -42,29 +42,30 @@ function Signup() {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <Card className="w-[350px]">
-        <CardHeader className="flex flex-col items-center text-center">
-          <CardTitle>Create Account</CardTitle>
-          <CardDescription>Sign up to get started.</CardDescription>
+      <Card className="w-[400px] p-6"> {/* Increased width and padding */}
+        <CardHeader className="flex flex-col items-center text-center mb-4">
+          <CardTitle className="text-xl font-semibold">Create Account</CardTitle>
+          <CardDescription className="text-sm text-gray-600">Sign up to get started.</CardDescription>
+          <CardDescription className="text-sm text-gray-600 mt-2">Already have an account? <a href="/signin" className="text-blue-500 hover:underline">Log in</a></CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
+            <div className="space-y-4"> {/* Space between form elements */}
+              <div className="flex flex-col space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" placeholder="Your email" value={formData.email} onChange={handleChange} />
               </div>
-              <div className="flex flex-col space-y-1.5">
+              <div className="flex flex-col space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" type="password" placeholder="Your password" value={formData.password} onChange={handleChange} />
               </div>
             </div>
-            <CardFooter className="flex justify-between mt-4">
+            <CardFooter className="flex justify-between mt-6"> {/* Increased margin-top */}
               <Button variant="outline" type="button">Cancel</Button>
               <Button type="submit" disabled={loading}>Sign Up</Button>
             </CardFooter>
           </form>
-          {error && <p>Error: {error.message}</p>}
+          {error && <p className="text-red-600 mt-4">Error: {error.message}</p>} {/* Error message styling */}
         </CardContent>
       </Card>
     </div>
