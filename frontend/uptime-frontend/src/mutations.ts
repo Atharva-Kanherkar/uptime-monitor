@@ -9,3 +9,12 @@ export const CREATE_USER = gql`
   }
 }
 `;
+export const GET_METRICS = gql`
+mutation GetMetrics($url: String!) {
+  getMetrics(url: $url) {
+    responseTime
+    status
+    url
+  }
+}
+`;

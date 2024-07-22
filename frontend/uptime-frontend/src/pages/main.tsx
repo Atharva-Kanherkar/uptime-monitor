@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import WebChecker from '@/components/webchecker';
 
 const HeroSection: React.FC = () => {
   const [dynamicText, setDynamicText] = useState('Predict Downtimes');
@@ -41,6 +42,9 @@ const HeroSection: React.FC = () => {
           {dynamicText}
         </motion.p>
       </AnimatePresence>
+      <div style={{ marginTop: '80px' }}> {/* Adjust this value for spacing */}
+        <WebChecker />
+      </div>
     </div>
   );
 };
