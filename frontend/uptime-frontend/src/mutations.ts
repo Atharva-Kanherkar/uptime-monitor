@@ -8,7 +8,27 @@ export const CREATE_USER = gql`
     password
   }
 }
+`
+;
+ 
+export const LOGIN_USER = gql`
+mutation Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    token
+    user {
+      id
+      email
+      userName
+      profilePhoto
+      isPaid
+      slackUserId
+      slackToken
+      slackChannelId
+    }
+  }
+}
 `;
+
 export const GET_METRICS = gql`
 mutation GetMetrics($url: String!) {
   getMetrics(url: $url) {

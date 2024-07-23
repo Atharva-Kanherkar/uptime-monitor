@@ -6,6 +6,7 @@ import FreeDashboard from './FreeDashboard';  // Import FreeDashboard
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import HeroSection from "./main";
+import NewScreenComponent from "@/components/NewScreenComponent";
 
 function AppContent() {
   const location = useLocation();
@@ -35,15 +36,14 @@ function AppContent() {
         {/* Main content routes */}
         <div className="pt-16">
           <Routes>
+            <Route path="/" element={<HeroSection />} /> {/* Add this route */}
+            <Route path="/new-screen" element={<NewScreenComponent />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/freeDashboard" element={<FreeDashboard />} /> {/* Add this route */}
+            <Route path="/freeDashboard" element={<FreeDashboard />} />
             {/* Add other routes here */}
           </Routes>
         </div>
-
-        {/* Display HeroSection if not on hideNavbarRoutes */}
-        {!hideNavbarRoutes.includes(location.pathname) && <HeroSection />}
       </div>
     </ThemeProvider>
   );
