@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import WebChecker from '@/components/webchecker';
+import { Navbar } from './navbar';
 
 const HeroSection: React.FC = () => {
   const [dynamicText, setDynamicText] = useState('Predict Downtimes');
@@ -19,7 +20,8 @@ const HeroSection: React.FC = () => {
   }, []);
 
   return (
-    <div style={styles.heroSection} className="flex flex-col items-center text-center p-4">
+        
+        <><div className='-mt-14'><Navbar /></div><div style={styles.heroSection} className="flex flex-col items-center text-center p-4">
       <motion.h1
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -45,7 +47,7 @@ const HeroSection: React.FC = () => {
       <div style={{ marginTop: '80px' }}> {/* Adjust this value for spacing */}
         <WebChecker />
       </div>
-    </div>
+    </div></>
   );
 };
 

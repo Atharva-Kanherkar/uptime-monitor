@@ -6,7 +6,9 @@ export interface UserInput {
     password: string;
 }
 export interface UpdateUserInput {
-    website: any;
+    website: {
+        url: string;
+      };
     userName: any;
     email: string;
     name?: string;
@@ -37,3 +39,4 @@ export interface WebsiteInput{
     status: string;
     responseTime: number;
 }
+ 

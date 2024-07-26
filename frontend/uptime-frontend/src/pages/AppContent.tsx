@@ -7,6 +7,9 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import HeroSection from "./main";
 import NewScreenComponent from "@/components/NewScreenComponent";
+import { AuthProvider } from "@/AuthContext";
+import ProtectedRoute from "@/ProtectedRoutes";
+import PaidDashboard from "./PaidDashboard";
 
 function AppContent() {
   const location = useLocation();
@@ -15,10 +18,10 @@ function AppContent() {
   const hideNavbarRoutes = ["/signup", "/signin", "/freeDashboard"];
 
   return (
+    <AuthProvider>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="relative min-h-screen">
-        {/* Display Navbar if not on hideNavbarRoutes */}
-        {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+     
 
         {/* Display Back to Home Page link on specific routes */}
         {hideNavbarRoutes.includes(location.pathname) && (
@@ -37,15 +40,24 @@ function AppContent() {
         <div className="pt-16">
           <Routes>
             <Route path="/" element={<HeroSection />} /> {/* Add this route */}
-            <Route path="/new-screen" element={<NewScreenComponent />} />
+            <Route path="/new-screen" element={<ProtectedRoute><NewScreenComponent /></ProtectedRoute>} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/freeDashboard" element={<FreeDashboard />} />
+            <Route
+            path="/pa"
+            element={
+              <ProtectedRoute>
+                <PaidDashboard />
+              </ProtectedRoute>
+            }
+          />
             {/* Add other routes here */}
           </Routes>
         </div>
       </div>
     </ThemeProvider>
+    </AuthProvider>
   );
 }
 

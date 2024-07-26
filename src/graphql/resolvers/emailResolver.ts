@@ -2,6 +2,7 @@
   import { PrismaClient } from '@prisma/client';
   import { getMetrics } from '../../utils/metrics';
   import { sendEmail } from '../../utils/email';
+import sendDemoEmail from '../../utils/demoEmail';
   
   const prisma = new PrismaClient();
   
@@ -23,6 +24,15 @@
         return "Website is up";
     }
 },
+sendDemoEmail: async (_: any, { email }: { email: string }) => {
+    try {
+      await sendDemoEmail(email);
+      return 'Email sent successfully';
+    } catch (error) {
+      console.error('Error sending email:', error);
+      throw new Error('Error sending email');
+    }
+  },
     }
 }
   

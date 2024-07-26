@@ -15,15 +15,19 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req, res }) => {
-    const token = req.headers.authorization || '';
-
     let user: User | null = null;
-    if (token) {
-      try {
-        console.log(token);
-        user = jwt.verify(token, "SECRETY") as User;
-      } catch (err : unknown) {
-        console.error('Invalid token:', (err as Error).message);
+    const authHeader = req.headers.authorization || '';
+
+    if (authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1]; // Extract the token from "Bearer <token>"
+
+      if (token) {
+        try {
+          console.log(token);
+          user = jwt.verify(token, 'SECRETY') as User;
+        } catch (err: unknown) {
+          console.error('Invalid token:', (err as Error).message);
+        }
       }
     }
 

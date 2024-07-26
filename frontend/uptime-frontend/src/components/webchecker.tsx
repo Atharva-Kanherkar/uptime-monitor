@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useMutation } from "@apollo/client";
-import { GET_METRICS } from "@/mutations";
+import { GET_METRICS_MUTATION } from "@/mutations";
 import { useNavigate } from "react-router-dom";
 
 interface MetricsData {
@@ -15,7 +15,7 @@ function WebChecker() {
   const [url, setUrl] = useState<string>('');
   const navigate = useNavigate();
 
-  const [getMetrics, { data, loading, error }] = useMutation<{ getMetrics: MetricsData }>(GET_METRICS);
+  const [getMetrics, { data, loading, error }] = useMutation<{ getMetrics: MetricsData }>(GET_METRICS_MUTATION);
 
   const handleCheck = async () => {
     if (url.trim() === '') return; // Ensure URL is not empty

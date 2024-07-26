@@ -43,7 +43,9 @@ function Signup() {
       console.error('Error creating user:', e);
     }
   };
-
+  const onCancel = async() => {
+  navigate('/');
+}
   return (
     <div className="flex items-center justify-center min-h-screen">
       <Card className="w-[400px] p-6">
@@ -67,7 +69,7 @@ function Signup() {
               </div>
             </div>
             <CardFooter className="flex justify-between mt-6">
-              <Button variant="outline" type="button">Cancel</Button>
+              <Button variant="outline" type="button" onClick={onCancel}>Cancel</Button>
               <Button type="submit" disabled={loading}>Sign Up</Button>
             </CardFooter>
           </form>

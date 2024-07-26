@@ -20,6 +20,11 @@ type User {
   slackChannelId: String
 }
 
+
+input WebsiteInput{
+  url: String!
+}
+
 input UserInput {
   email: String!
   password: String!
@@ -31,6 +36,7 @@ input UpdateUserInput {
   password: String
   profilePhoto: String
   isPaid: Boolean
+  website : WebsiteInput
 }
 
 type AuthPayload {
@@ -57,6 +63,9 @@ type Mutation {
   deleteUser: User!
   registerSlack(slackUserId: String!, slackToken: String!, slackChannelId: String!): Boolean!
   sendSlackAlert(userId: String!, message: String!): Boolean!
+  sendDemoEmail(email: String!): String
+  
+
 }
 
 type Query {

@@ -29,7 +29,16 @@ mutation Login($email: String!, $password: String!) {
 }
 `;
 
-export const GET_METRICS = gql`
+ export const METRICS_HISTORY_QUERY = gql`
+query MetricsHistory($url: String!) {
+  metricsHistory(url: $url) {
+    responseTime
+    status
+  }
+}
+`;
+
+export const GET_METRICS_MUTATION = gql`
 mutation GetMetrics($url: String!) {
   getMetrics(url: $url) {
     responseTime
@@ -38,14 +47,27 @@ mutation GetMetrics($url: String!) {
   }
 }
 `;
-
-export const METRICS_HISTORY_QUERY = gql`
-  query MetricsHistory($url: String!) {
-    metricsHistory(url: $url) {
-      id
-      status
-      responseTime
-      timestamp
+export const ME_QUERY = gql`
+query Me {
+  me {
+    email
+    id
+    password
+    isPaid
+    profilePhoto
+    slackChannelId
+    slackToken
+    slackUserId
+    userName
+    website {
+      url
     }
   }
+}
 `;
+export const SEND_DEMO_EMAIL = gql`
+mutation SendDemoEmail($email: String!) {
+  sendDemoEmail(email: $email)
+}
+`;
+
